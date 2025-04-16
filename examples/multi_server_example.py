@@ -11,7 +11,7 @@ import asyncio
 
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
-
+from langchain_openai import ChatOpenAI
 from mcp_use import MCPAgent, MCPClient
 
 
@@ -37,7 +37,7 @@ async def run_multi_server_example():
                 "args": [
                     "-y",
                     "@modelcontextprotocol/server-filesystem",
-                    "/home/pietro/projects/mcp-use/",
+                    "/Users/marcushobbs/Documents/AI/marcus-w-hobbs/mcp-use",
                 ],
             },
         }
@@ -47,14 +47,17 @@ async def run_multi_server_example():
     client = MCPClient.from_dict(config)
 
     # Create LLM
-    llm = ChatAnthropic(model="claude-3-5-sonnet-20240620")
+    # llm = ChatAnthropic(model="claude-3-5-sonnet-20240620")
+    llm = ChatOpenAI(model="o4-mini")
+    # llm = ChatOpenAI(model="o3-mini")
+    # llm = ChatOpenAI(model="gpt-4o")
 
     # Create agent with the client
     agent = MCPAgent(llm=llm, client=client, max_steps=30)
 
     # Example 1: Using tools from different servers in a single query
     result = await agent.run(
-        "Search for a nice place to stay in Barcelona on Airbnb, "
+        "Search for a nice place to stay in Palm Springs and Palm Desert on Airbnb, "
         "then use Google to find nearby restaurants and attractions."
         "Write the result in the current directory in restarant.txt",
         max_steps=30,

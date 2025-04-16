@@ -27,7 +27,9 @@ async def run_memory_chat():
 
     # Create MCP client and agent with memory enabled
     client = MCPClient.from_config_file(config_file)
-    llm = ChatOpenAI(model="gpt-4o-mini")
+    llm = ChatOpenAI(model="o4-mini")
+    # llm = ChatOpenAI(model="o3-mini")
+    # llm = ChatOpenAI(model="gpt-4o")
 
     # Create agent with memory_enabled=True
     agent = MCPAgent(

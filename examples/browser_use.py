@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 from mcp_use import MCPAgent, MCPClient
+from mcp_use.logging import Logger
 
 
 async def main():
@@ -21,11 +22,20 @@ async def main():
     # Load environment variables
     load_dotenv()
 
+    # Configure logging
+    Logger.configure(
+        level="DEBUG",
+        log_to_console=True,
+        log_to_file="mcp_use.log"
+    )
+
     # Create MCPClient from config file
     client = MCPClient.from_config_file(os.path.join(os.path.dirname(__file__), "browser_mcp.json"))
 
     # Create LLM
-    llm = ChatOpenAI(model="gpt-4o")
+    llm = ChatOpenAI(model="o4-mini")
+    # llm = ChatOpenAI(model="o3-mini")
+    # llm = ChatOpenAI(model="gpt-4o")
     # llm = init_chat_model(model="llama-3.1-8b-instant", model_provider="groq")
     # llm = ChatAnthropic(model="claude-3-")
     # llm = ChatGroq(model="llama3-8b-8192")
@@ -35,7 +45,7 @@ async def main():
 
     # Run the query
     result = await agent.run(
-        "Find the best restaurant in San Francisco USING GOOGLE SEARCH",
+        "Find the best restaurant in Hermosa Beach USING GOOGLE SEARCH",
         max_steps=30,
     )
     print(f"\nResult: {result}")

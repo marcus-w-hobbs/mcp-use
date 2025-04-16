@@ -22,7 +22,7 @@ config = {
             "args": [
                 "-y",
                 "@modelcontextprotocol/server-filesystem",
-                "/home/pietro/projects/mcp-use/",
+                "/Users/marcushobbs/Documents/AI/marcus-w-hobbs/mcp-use",
             ],
         }
     }
@@ -37,7 +37,9 @@ async def main():
     # Create MCPClient from config file
     client = MCPClient.from_dict(config)
     # Create LLM
-    llm = ChatOpenAI(model="gpt-4o")
+    llm = ChatOpenAI(model="o4-mini")
+    # llm = ChatOpenAI(model="o3-mini")
+    # llm = ChatOpenAI(model="gpt-4o")
     # llm = init_chat_model(model="llama-3.1-8b-instant", model_provider="groq")
     # llm = ChatAnthropic(model="claude-3-")
     # llm = ChatGroq(model="llama3-8b-8192")
